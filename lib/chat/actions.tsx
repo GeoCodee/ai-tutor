@@ -138,7 +138,7 @@ async function submitUserMessage(content: string) {
   let textNode: undefined | React.ReactNode
 
   const result = await streamUI({
-    model: openai('gpt-3.5-turbo'),
+    model: openai('gpt-4o'),
     initial: <SpinnerMessage />,
     system: `\
     You are a stock trading conversation bot and you can help users buy stocks, step by step.
@@ -154,7 +154,9 @@ async function submitUserMessage(content: string) {
     If you want to show events, call \`get_events\`.
     If the user wants to sell stock, or complete another impossible task, respond that you are a demo and cannot do that.
     
-    Besides that, you can also chat with users and do some calculations if needed.`,
+    Besides that, you can also chat with users and do some calculations if needed.
+    
+    Important Note: Make sure to get the latest data and feel free to search the web for reliable sources.`,
     messages: [
       ...aiState.get().messages.map((message: any) => ({
         role: message.role,
@@ -386,7 +388,7 @@ async function submitUserMessage(content: string) {
 }
 
 export type Message = {
-  role: 'user' | 'assistant' | 'system' | 'function' | 'data' | 'tool'
+  role: 'user' | 'assistant' | 'system' | 'function' | 'data' | 'tool' | '.for'
   content: string
   id: string
   name?: string
